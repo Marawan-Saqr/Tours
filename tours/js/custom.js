@@ -110,6 +110,13 @@ const requiredField = document.querySelector(".requiredField");
 let min = document.querySelector(".min");
 let max = document.querySelector(".max");
 let sendBtn = document.getElementById("sendBtn");
+let userName = "";
+
+document.addEventListener("DOMContentLoaded", function() {
+  if (window.localStorage.getItem("userName")) {
+    navbarBrand.textContent = window.localStorage.getItem("userName");
+  }
+})
 
 input.addEventListener("blur", function () {
   if (input.value.length === 0) {
@@ -126,10 +133,12 @@ sendBtn.addEventListener("click", function () {
     alert("Cant Send Empty Form Please Fill The Data");
   } else if (input.value.length < 5) {
     min.classList.remove("d-none");
-  } else if (input.value.length >= 50) {
+  } else if (input.value.length >= 20) {
     max.classList.remove("d-none");
   } else if (input.value.length >= 5) {
     alert(`Data Sent Successfully => ${input.value}`);
+    userName = window.localStorage.setItem("userName", input.value);
+    navbarBrand.textContent = window.localStorage.getItem("userName");
     input.value = "";
   }
 })
